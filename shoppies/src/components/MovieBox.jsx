@@ -1,10 +1,25 @@
 import { Form, Card, Button, CardDeck } from 'react-bootstrap';
-
+import axios from 'axios';
+import { useEffect } from 'react';
 
 export default function MovieBox() {
+  const omdbUrl = "http://www.omdbapi.com/?i=tt3896198&apikey=91c918d&"
+  useEffect(() =>{
+    axios({
+      method: "GET",
+      url: omdbUrl,
+    })
+    .then(res =>{
+      console.log("CALL",res.data)
+    })
+
+  }, [])
+
+
+
   return (
     <div>
-            <Card>
+        <Card>
           {/* <Card.Header as="h5">Nominations</Card.Header> */}
           <Card.Body>
             {/* <Card.Title>Special title treatment</Card.Title> */}

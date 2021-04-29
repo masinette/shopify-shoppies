@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import MovieBox from './components/MovieBox'
 
@@ -6,9 +5,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
+        <h1>
           The Shoppies
-        </p>
+        </h1>
         <a
           className="App-link"
           href="https://reactjs.org"
