@@ -1,19 +1,23 @@
 import { Form, Card, Button, CardDeck } from 'react-bootstrap';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function MovieBox() {
-  const omdbUrl = "http://www.omdbapi.com/?i=tt3896198&apikey=91c918d&"
+  const movieTitle = "Jumanji"
+  const omdbUrl = `http://www.omdbapi.com/?apikey=91c918d&t=${movieTitle}`;
+  const [movieInfo, setMovieInfo] = useState();
+
+//query the omdB api for movie title, refresh on url changes
   useEffect(() =>{
     axios({
       method: "GET",
       url: omdbUrl,
     })
     .then(res =>{
-      console.log("CALL",res.data)
+      setMovieInfo(res.data)
     })
-
-  }, [])
+    console.log("MOVIEINFO",movieInfo)
+  }, [omdbUrl])
 
 
 
