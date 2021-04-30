@@ -26,29 +26,33 @@ export default function MovieBox() {
   
   //handle selection of 'nominate' button, add selected movie to nominations list
   function handleNominate(title, year){
-    // console.log("clicked", title)
-    if (Button.id="nominate"){
       //append selected nomination to list,with movie title and year
       setNominationList(nominationList => [...nominationList, {title: title, year: year}])
-    }
   }
 
-  function handleRemoveNomination(title, year){
-      if (Button.id="remove"){
-      //find index of title to remove from nominations list
-      const index = nominationList.indexOf(title)
-      console.log("REMOVE", title, year, index)
-      //remove movie from nomination list
-      setNominationList(nominationList => [...nominationList.splice()])
-    }
+
+
+
+  function handleRemoveNomination(index){
+
+
+    //remove movie from nomination list
+    nominationList.splice(index.index, 1)
+    //reset nominations list, without removed movie title
+  // setNominationList(nominationList)
+    console.log("REMOVE", index.index, nominationList)
   }
+
+
+
+
 
   //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie)=>{
     return (
       <li>
       <form onSubmit={(event)=> event.preventDefault()}>
-        {movie.Title} ({movie.Year}
+        {movie.Title} ({movie.Year})
         <Button 
           id="nominate"
           variant="info" 
@@ -64,26 +68,40 @@ export default function MovieBox() {
     )
   });
 
-  const nominationListView = nominationList.map((movie)=>{
-    console.log("NOMS", nominationList)
-    return (
-      <li>
-        <form onSubmit={(event)=> event.preventDefault()}>
-          {movie.title} ({movie.year})
-          <Button 
-            id="remove"
-            variant="info" 
-            type="submit" 
-            onClick={(event) => 
-            handleRemoveNomination( movie.title, movie.year )
-            }
-          >
-          Remove
-        </Button>
-        </form>
-      </li>
-    )
-  }) 
+
+
+
+
+useEffect(()=>{
+
+}, [nominationList])
+
+  // function nominationListView(nominationList){
+    const nominationListView = nominationList.map((movie, index)=>{
+      // const index = nominationList.indexOf(movie.title)
+      return (
+        <li>
+          <form onSubmit={(event)=> event.preventDefault()}>
+            {movie.title} ({movie.year})
+            <Button 
+              id={index}
+              variant="info" 
+              type="submit" 
+              onClick={(event) => {
+                event.preventDefault()
+                handleRemoveNomination( {index} )
+                }
+              }
+            >
+            Remove
+          </Button>
+          </form>
+        </li>
+      )
+    }) 
+  // } 
+
+
 
 
   return (
@@ -134,7 +152,7 @@ export default function MovieBox() {
             {/* <Card.Title>Special title treatment</Card.Title> */}
             <Card.Text>
               <ul>
-                { nominationListView }
+              { nominationListView }
               </ul>
             </Card.Text>
           </Card.Body>
