@@ -25,8 +25,9 @@ export default function MovieBox() {
   }, [omdbUrl])
   
   //handle selection of 'nominate' button
-  function handleSelect(){
-    console.log("clicked")
+  function handleSelect(title){
+    // console.log("clicked", title)
+    setNominationList(nominationList => [nominationList, title])
   }
 
 
@@ -34,14 +35,18 @@ export default function MovieBox() {
   const moviesList = movieInfo.map((movie)=>{
     return (
       <li>
-        {movie.Title} ({movie.Year})
+      <form onSubmit={(event)=> event.preventDefault()}>
+        {movie.Title} ({movie.Year}
         <Button 
           variant="info" 
           type="submit" 
-          onClick={(event) => handleSelect()}
+          onClick={(event) => 
+          handleSelect( movie.Title )
+          }
         >
           Nominate
         </Button>
+       </form> 
       </li> 
     )
   });
