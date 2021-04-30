@@ -1,9 +1,9 @@
-import { Form, Card, Button, CardDeck } from 'react-bootstrap';
+import { Form, Card, Button, CardDeck, InputGroup, FormControl, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export default function MovieBox() {
-  const [movieTitle, setMovieTitle] = useState("Jumanji");
+  const [movieTitle, setMovieTitle] = useState("");
   const omdbUrl = `http://www.omdbapi.com/?apikey=91c918d&s=${movieTitle}`;
   const [movieInfo, setMovieInfo] = useState([{ Search: "", Year: "", Title: ""}]);
 
@@ -22,15 +22,12 @@ export default function MovieBox() {
     })
     // .catch()
   }, [omdbUrl])
-  // console.log("MOVIEINFO",movieInfo)
   
+  //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie)=>{
-
     return (
-    <li>{movie.Title} ({movie.Year})<Button variant="info">Nominate</Button></li> 
-
+      <li>{movie.Title} ({movie.Year})<Button variant="info">Nominate</Button></li> 
     )
-    // console.log(movie.Title)
   });
 
 
@@ -38,30 +35,33 @@ export default function MovieBox() {
   return (
     <div>
         <Card>
-          {/* <Card.Header as="h5">Nominations</Card.Header> */}
           <Card.Body>
-            {/* <Card.Title>Special title treatment</Card.Title> */}
             <Card.Text>
-              <Form 
-                onSubmit={(event)=> event.preventDefault()} 
-              >
-                <Form.Group>
-                  <Form.Label>Movie Title</Form.Label>
-                  <Form.Control 
-                  type="text" 
-                  placeholder= " Enter movie title here..." 
-                  onChange={(event)=> setMovieTitle(event.target.value)}
-                  />
-                </Form.Group>
-                {/* <Button type="submit" onClick={(event)=> 
-                  console.log("USERINPUT", event.target.value)
-                }>Submit</Button> */}
-              </Form>
+              <Col>
+                <Form onSubmit={(event)=> event.preventDefault()} >
+                  <Form.Group>
+                    <Form.Label>Movie Title</Form.Label>
+
+                    <InputGroup className="mb-2">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>&#128269;</InputGroup.Text>
+                      </InputGroup.Prepend>
+                        <Form.Control 
+                          type="text" 
+                          placeholder= "Enter movie title here..." 
+                          onChange={(event)=> setMovieTitle(event.target.value)}
+                        />
+                    </InputGroup>
+                    
+                  </Form.Group>
+                </Form>
+              </Col>
             </Card.Text>
           </Card.Body>
         </Card>
 
       <CardDeck>
+
         <Card>
           <Card.Header as="h5">Results for:</Card.Header>
           <Card.Body>
@@ -69,12 +69,8 @@ export default function MovieBox() {
             <Card.Text>
               <ul>
                 { moviesList }
-                {/* <li><p>{movieInfo.Search[0].Title} ({movieInfo.Search[0].Year})<Button variant="info">Nominate</Button></p></li>
-                <li><p>{movieInfo.Search[1].Title} ({movieInfo.Search[1].Year})<Button variant="info">Nominate</Button></p></li>
-                <li><p>{movieInfo.Search[2].Title} ({movieInfo.Search[2].Year})<Button variant="info">Nominate</Button></p></li> */}
               </ul>
             </Card.Text>
-            
           </Card.Body>
         </Card>
 
