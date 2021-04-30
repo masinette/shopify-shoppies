@@ -25,14 +25,23 @@ export default function MovieBox() {
   }, [omdbUrl])
   
   //handle selection of 'nominate' button, add selected movie to nominations list
-  function handleSelect(title, year){
+  function handleNominate(title, year){
     // console.log("clicked", title)
     if (Button.id="nominate"){
+      //append selected nomination to list,with movie title and year
       setNominationList(nominationList => [...nominationList, {title: title, year: year}])
     }
-    
   }
 
+  function handleRemoveNomination(title, year){
+      if (Button.id="remove"){
+      //find index of title to remove from nominations list
+      const index = nominationList.indexOf(title)
+      console.log("REMOVE", title, year, index)
+      //remove movie from nomination list
+      setNominationList(nominationList => [...nominationList.splice()])
+    }
+  }
 
   //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie)=>{
@@ -45,7 +54,7 @@ export default function MovieBox() {
           variant="info" 
           type="submit" 
           onClick={(event) => 
-          handleSelect( movie.Title, movie.Year )
+          handleNominate( movie.Title, movie.Year )
           }
         >
           Nominate
@@ -66,7 +75,7 @@ export default function MovieBox() {
             variant="info" 
             type="submit" 
             onClick={(event) => 
-            handleSelect( movie.Title, movie.Year )
+            handleRemoveNomination( movie.title, movie.year )
             }
           >
           Remove
