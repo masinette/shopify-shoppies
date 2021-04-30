@@ -1,11 +1,12 @@
-import { Form, Card, Button, CardDeck, InputGroup, FormControl, Col } from 'react-bootstrap';
+import { Form, Card, Button, CardDeck, InputGroup, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export default function MovieBox() {
   const [movieTitle, setMovieTitle] = useState("");
-  const omdbUrl = `http://www.omdbapi.com/?apikey=91c918d&s=${movieTitle}`;
+  const omdbUrl = `http://www.omdbapi.com/?apikey=91c918d&s=${movieTitle}&type=movie`;
   const [movieInfo, setMovieInfo] = useState([{ Search: "", Year: "", Title: ""}]);
+  const [nominationList, setNominationList] = useState([]);
 
 //query the omdB api for movie title, refresh on url changes
   useEffect(() =>{
@@ -23,10 +24,25 @@ export default function MovieBox() {
     // .catch()
   }, [omdbUrl])
   
+  //handle selection of 'nominate' button
+  function handleSelect(){
+    console.log("clicked")
+  }
+
+
   //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie)=>{
     return (
-      <li>{movie.Title} ({movie.Year})<Button variant="info">Nominate</Button></li> 
+      <li>
+        {movie.Title} ({movie.Year})
+        <Button 
+          variant="info" 
+          type="submit" 
+          onClick={(event) => handleSelect()}
+        >
+          Nominate
+        </Button>
+      </li> 
     )
   });
 
@@ -83,7 +99,7 @@ export default function MovieBox() {
                 <li><p>Movie Title<Button variant="primary">Remove</Button></p></li>
                 <li><p>Movie Title<Button variant="primary">Remove</Button></p></li>
                 <li><p>Movie Title<Button variant="primary">Remove</Button></p></li>
-                {/* <NomsList /> */}
+                { nominationList }
               </ul>
             </Card.Text>
           </Card.Body>
