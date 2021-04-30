@@ -24,10 +24,13 @@ export default function MovieBox() {
     // .catch()
   }, [omdbUrl])
   
-  //handle selection of 'nominate' button
-  function handleSelect(title){
+  //handle selection of 'nominate' button, add selected movie to nominations list
+  function handleSelect(title, year){
     // console.log("clicked", title)
-    setNominationList(nominationList => [nominationList, title])
+    if (Button.id="nominate"){
+      setNominationList(nominationList => [...nominationList, {title: title, year: year}])
+    }
+    
   }
 
 
@@ -38,10 +41,11 @@ export default function MovieBox() {
       <form onSubmit={(event)=> event.preventDefault()}>
         {movie.Title} ({movie.Year}
         <Button 
+          id="nominate"
           variant="info" 
           type="submit" 
           onClick={(event) => 
-          handleSelect( movie.Title )
+          handleSelect( movie.Title, movie.Year )
           }
         >
           Nominate
@@ -51,6 +55,26 @@ export default function MovieBox() {
     )
   });
 
+  const nominationListView = nominationList.map((movie)=>{
+    console.log("NOMS", nominationList)
+    return (
+      <li>
+        <form onSubmit={(event)=> event.preventDefault()}>
+          {movie.title} ({movie.year})
+          <Button 
+            id="remove"
+            variant="info" 
+            type="submit" 
+            onClick={(event) => 
+            handleSelect( movie.Title, movie.Year )
+            }
+          >
+          Remove
+        </Button>
+        </form>
+      </li>
+    )
+  }) 
 
 
   return (
@@ -101,10 +125,7 @@ export default function MovieBox() {
             {/* <Card.Title>Special title treatment</Card.Title> */}
             <Card.Text>
               <ul>
-                <li><p>Movie Title<Button variant="primary">Remove</Button></p></li>
-                <li><p>Movie Title<Button variant="primary">Remove</Button></p></li>
-                <li><p>Movie Title<Button variant="primary">Remove</Button></p></li>
-                { nominationList }
+                { nominationListView }
               </ul>
             </Card.Text>
           </Card.Body>
