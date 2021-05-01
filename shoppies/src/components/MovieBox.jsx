@@ -1,4 +1,4 @@
-import { Form, Card, Button, CardDeck, InputGroup, Col } from 'react-bootstrap';
+import { Form, Card, Button, CardDeck, InputGroup, Col, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -7,6 +7,8 @@ export default function MovieBox() {
   const omdbUrl = `http://www.omdbapi.com/?apikey=91c918d&s=${movieTitle}&type=movie`;
   const [movieInfo, setMovieInfo] = useState([{ Search: "", Year: "", Title: ""}]);
   const [nominationList, setNominationList] = useState([]);
+  const [nominated, setNominated] = useState(false)
+  const [show, setShow] = useState(false);
 
 //query the omdB api for movie title, refresh on url changes
   useEffect(() =>{
@@ -26,17 +28,38 @@ export default function MovieBox() {
   
   //handle selection of 'nominate' button, add selected movie to nominations list
   function handleNominate(title, year, id){
-      //append selected nomination to list,with movie title and year
-    // console.log("INSIDE NOM HANDLER", nominationList)
+    // setNominated(true) [DISABLES ALL THE BUTTONS]
+    //limit nomination list to five entries
     if (nominationList.length < 5){
+      //append selected nomination to list,with movie title and year
       setNominationList(nominationList => [...nominationList, {title: title, year: year, id: id}])
     }
     if (nominationList.length === 5){
-      console.log("list is full")
-      // console.log(nominationList)
+      // console.log("list is full"
+      setShow(true)
     }
   }
 
+
+      function AlertDismissibleExample() {
+
+  if (show) {
+    return (
+      <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+        <Alert.Heading>You may only choose <b>5</b> films!</Alert.Heading>
+        <p>
+          If you'd like to change your current nominations, you may remove titles from your list and add new ones.
+        </p>
+      </Alert>
+    );
+  }
+  return "";
+}
+  // function nominated?(){
+  //   const found = nominationList.find()
+
+  //   }
+  // }
 
   const handleRemoveNomination = (index, title) => {
     //remove movie from nomination list
@@ -55,12 +78,17 @@ export default function MovieBox() {
       <form onSubmit={(event)=> event.preventDefault()}>
         {movie.Title} ({movie.Year})
         <Button 
+          disabled={nominated}
           // id={(key+1)}
           variant="info" 
           type="submit" 
+
           onClick={(event) => 
+          // setNominated(true),
           handleNominate( movie.Title, movie.Year)
           }
+          // nominated 
+
         >
           Nominate
         </Button>
@@ -149,6 +177,7 @@ const renderedNoms = nominationsListView(nominationList)
               { renderedNoms }
               </ul>
             </Card.Text>
+            <AlertDismissibleExample />
           </Card.Body>
         </Card>
       </CardDeck>
