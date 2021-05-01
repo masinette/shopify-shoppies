@@ -35,28 +35,27 @@ export default function MovieBox() {
       setNominationList(nominationList => [...nominationList, {title: title, year: year, id: id}])
     }
     if (nominationList.length === 4){
-      // console.log("list is full"
+      //when nomination list is full, alert user
       setShow(true)
     }
   }
 
 
-      function AlertDismissibleExample() {
-
-  if (show) {
-    return (
-      <Alert variant="info" onClose={() => setShow(false)} dismissible>
-        <Alert.Heading>Congratulations, you've chosen <b>5</b> films!</Alert.Heading>
-        <p>
-          Please note: 
-          If you'd like to change your current nominations, you may remove titles 
-          from your list and add new ones.
-        </p>
-      </Alert>
-    );
+  function AlertDismissibleExample() {
+    if (show) {
+      return (
+        <Alert variant="info" onClose={() => setShow(false)} dismissible>
+          <Alert.Heading>Congratulations, you've chosen <b>5</b> films!</Alert.Heading>
+          <p>
+            Please note: 
+            If you'd like to change your current nominations, you may remove titles 
+            from your list and add new ones.
+          </p>
+        </Alert>
+      );
+    }
+    return "";
   }
-  return "";
-}
   // function nominated?(){
   //   const found = nominationList.find()
 
@@ -159,9 +158,9 @@ const renderedNoms = nominationsListView(nominationList)
       <CardDeck>
 
         <Card>
-          <Card.Header as="h5">Results for:</Card.Header>
+          <Card.Header as="h5">Results for "{movieTitle}"</Card.Header>
           <Card.Body>
-            <Card.Title>{movieTitle}</Card.Title>
+            {/* <Card.Title>{movieTitle}</Card.Title> */}
             <Card.Text>
               <ul>
                 { moviesList }
