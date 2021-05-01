@@ -32,15 +32,6 @@ export default function MovieBox() {
   }
 
 
-
-// useEffect(()=>{
-//   console.log("Nomination changes")
-//   nominationsListView(nominationList)
-//   // setNominationList(nominationList)
-// }, [nominationList])
-
-
-
   const handleRemoveNomination = (index, title) => {
     //remove movie from nomination list
     const newList = nominationList.filter(nom => nom.title !== title)
@@ -48,9 +39,6 @@ export default function MovieBox() {
     setNominationList(newList)
     console.log("REMOVE", index.index, newList)
   }
-
-
-
 
 
   //map through movies from user input and add to results list
