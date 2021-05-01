@@ -25,22 +25,28 @@ export default function MovieBox() {
   }, [omdbUrl])
   
   //handle selection of 'nominate' button, add selected movie to nominations list
-  function handleNominate(title, year){
+  function handleNominate(title, year, id){
       //append selected nomination to list,with movie title and year
-      setNominationList(nominationList => [...nominationList, {title: title, year: year}])
+      setNominationList(nominationList => [...nominationList, {title: title, year: year, id: id}])
+    // console.log("INSIDE NOM HANDLER", nominationList)
   }
 
 
 
+// useEffect(()=>{
+//   console.log("Nomination changes")
+//   nominationsListView(nominationList)
+//   // setNominationList(nominationList)
+// }, [nominationList])
 
-  function handleRemoveNomination(index){
 
 
+  const handleRemoveNomination = (index, title) => {
     //remove movie from nomination list
-    nominationList.splice(index.index, 1)
-    //reset nominations list, without removed movie title
-  // setNominationList(nominationList)
-    console.log("REMOVE", index.index, nominationList)
+    const newList = nominationList.filter(nom => nom.title !== title)
+    //replace nominations list with NEW filtered list. Do not splice as it changes list in state
+    setNominationList(newList)
+    console.log("REMOVE", index.index, newList)
   }
 
 
@@ -48,17 +54,18 @@ export default function MovieBox() {
 
 
   //map through movies from user input and add to results list
-  const moviesList = movieInfo.map((movie)=>{
+  const moviesList = movieInfo.map((movie, index)=>{
+    // let key = 0
     return (
       <li>
       <form onSubmit={(event)=> event.preventDefault()}>
         {movie.Title} ({movie.Year})
         <Button 
-          id="nominate"
+          // id={(key+1)}
           variant="info" 
           type="submit" 
           onClick={(event) => 
-          handleNominate( movie.Title, movie.Year )
+          handleNominate( movie.Title, movie.Year)
           }
         >
           Nominate
@@ -68,15 +75,7 @@ export default function MovieBox() {
     )
   });
 
-
-
-
-
-useEffect(()=>{
-
-}, [nominationList])
-
-  // function nominationListView(nominationList){
+  function nominationsListView(nominationList){
     const nominationListView = nominationList.map((movie, index)=>{
       // const index = nominationList.indexOf(movie.title)
       return (
@@ -89,7 +88,7 @@ useEffect(()=>{
               type="submit" 
               onClick={(event) => {
                 event.preventDefault()
-                handleRemoveNomination( {index} )
+                handleRemoveNomination( {index}, movie.title )
                 }
               }
             >
@@ -99,9 +98,10 @@ useEffect(()=>{
         </li>
       )
     }) 
-  // } 
+    return nominationListView
+  } 
 
-
+const renderedNoms = nominationsListView(nominationList)
 
 
   return (
@@ -152,7 +152,7 @@ useEffect(()=>{
             {/* <Card.Title>Special title treatment</Card.Title> */}
             <Card.Text>
               <ul>
-              { nominationListView }
+              { renderedNoms }
               </ul>
             </Card.Text>
           </Card.Body>
