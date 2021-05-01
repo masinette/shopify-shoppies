@@ -34,7 +34,7 @@ export default function MovieBox() {
       //append selected nomination to list,with movie title and year
       setNominationList(nominationList => [...nominationList, {title: title, year: year, id: id}])
     }
-    if (nominationList.length === 5){
+    if (nominationList.length === 4){
       // console.log("list is full"
       setShow(true)
     }
@@ -45,10 +45,12 @@ export default function MovieBox() {
 
   if (show) {
     return (
-      <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-        <Alert.Heading>You may only choose <b>5</b> films!</Alert.Heading>
+      <Alert variant="info" onClose={() => setShow(false)} dismissible>
+        <Alert.Heading>Congratulations, you've chosen <b>5</b> films!</Alert.Heading>
         <p>
-          If you'd like to change your current nominations, you may remove titles from your list and add new ones.
+          Please note: 
+          If you'd like to change your current nominations, you may remove titles 
+          from your list and add new ones.
         </p>
       </Alert>
     );
