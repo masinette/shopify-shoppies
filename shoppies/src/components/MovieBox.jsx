@@ -7,7 +7,7 @@ export default function MovieBox() {
   const omdbUrl = `http://www.omdbapi.com/?apikey=91c918d&s=${movieTitle}&type=movie`;
   const [movieInfo, setMovieInfo] = useState([{ Search: "", Year: "", Title: ""}]);
   const [nominationList, setNominationList] = useState([]);
-  const [nominated, setNominated] = useState(false)
+  const [disabled, setDisabled] = useState(false)
   const [show, setShow] = useState(false);
 
 //query the omdB api for movie title, refresh on url changes
@@ -79,16 +79,15 @@ export default function MovieBox() {
       <form onSubmit={(event)=> event.preventDefault()}>
         {movie.Title} ({movie.Year})
         <Button 
-          disabled={nominated}
+          disabled={disabled}
           // id={(key+1)}
           variant="info" 
           type="submit" 
 
           onClick={(event) => 
-          // setNominated(true),
           handleNominate( movie.Title, movie.Year)
+          // setDisabled(true)
           }
-          // nominated 
 
         >
           Nominate
