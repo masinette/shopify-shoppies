@@ -27,8 +27,14 @@ export default function MovieBox() {
   //handle selection of 'nominate' button, add selected movie to nominations list
   function handleNominate(title, year, id){
       //append selected nomination to list,with movie title and year
-      setNominationList(nominationList => [...nominationList, {title: title, year: year, id: id}])
     // console.log("INSIDE NOM HANDLER", nominationList)
+    if (nominationList.length < 5){
+      setNominationList(nominationList => [...nominationList, {title: title, year: year, id: id}])
+    }
+    if (nominationList.length === 5){
+      console.log("list is full")
+      // console.log(nominationList)
+    }
   }
 
 
@@ -36,8 +42,8 @@ export default function MovieBox() {
     //remove movie from nomination list
     const newList = nominationList.filter(nom => nom.title !== title)
     //replace nominations list with NEW filtered list. Do not splice as it changes list in state
-    setNominationList(newList)
-    console.log("REMOVE", index.index, newList)
+      setNominationList(newList)
+    console.log("REMOVE", index.index, newList.length)
   }
 
 
