@@ -1,6 +1,7 @@
-import { Form, Card, Button, CardDeck, InputGroup, Col, Alert } from 'react-bootstrap';
+import { Form, Card, ToggleButton, Button, CardDeck, InputGroup, Col, Alert, ButtonGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import './MovieBox.css';
 
 export default function MovieBox() {
   const [movieTitle, setMovieTitle] = useState("");
@@ -9,6 +10,7 @@ export default function MovieBox() {
   const [nominationList, setNominationList] = useState([]);
   const [disabled, setDisabled] = useState(false)
   const [show, setShow] = useState(false);
+  // const [checked, setChecked] = useState(false, disabled);
 
 //query the omdB api for movie title, refresh on url changes
   useEffect(() =>{
@@ -38,6 +40,9 @@ export default function MovieBox() {
       //when nomination list is full, alert user
       setShow(true)
     }
+    // if (nominationList.id === id){
+    //   setDisabled(true)
+    // }
   }
 
 
@@ -56,11 +61,6 @@ export default function MovieBox() {
     }
     return "";
   }
-  // function nominated?(){
-  //   const found = nominationList.find()
-
-  //   }
-  // }
 
   const handleRemoveNomination = (index, title) => {
     //remove movie from nomination list
@@ -70,28 +70,46 @@ export default function MovieBox() {
     console.log("REMOVE", index.index, newList.length)
   }
 
+  const disableClick = () => {
+    console.log("DISABLED",disabled)
+    // if (disabled === false) { setDisabled(true)} 
+    // setDisabled(true);
+  }
+
 
   //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie, index)=>{
     // let key = 0
     return (
       <li>
-      <form onSubmit={(event)=> event.preventDefault()}>
-        {movie.Title} ({movie.Year})
-        <Button 
-          disabled={disabled}
-          // id={(key+1)}
-          variant="info" 
-          type="submit" 
+        <form onSubmit={(event)=> event.preventDefault()}>
+          {movie.Title} ({movie.Year})
 
-          onClick={(event) => 
-          handleNominate( movie.Title, movie.Year)
-          // setDisabled(true)
-          }
+          <Button 
+            disabled={disabled}
+            class="active"
+            id={movie.title}
+            variant="primary" 
+            type="submit" 
 
-        >
-          Nominate
-        </Button>
+            // onChange={(e)=> 
+            //   // console.log("changed")
+            //   // setDisabled(e.target.disabled)
+            // }
+
+            onClick={(event) => {
+              // event.preventDefault()
+              // {disableClick()},
+              // setDisabled(true)
+              handleNominate( movie.Title, movie.Year)
+              }
+            }
+            >
+            Nominate
+          </Button>
+
+          {/* <Button class="inactive" disabled>Nominate</Button> */}
+          
        </form> 
       </li> 
     )

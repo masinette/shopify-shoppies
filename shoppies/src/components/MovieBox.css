@@ -1,0 +1,11 @@
+.active {
+  color: red;
+  background-color: green;
+}
+.active::selection {
+  color: black;
+  background-color: orange;
+}
+.disabled {
+  background-color: yellow;
+}
