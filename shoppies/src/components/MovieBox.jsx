@@ -36,13 +36,15 @@ export default function MovieBox() {
   //handle selection of 'nominate' button, add selected movie to nominations list
   function handleNominate(title, year, index){
     // setNominated(true) [DISABLES ALL THE BUTTONS]
-    console.log("INDEX", index)
+    // console.log("INDEX", index)
     //limit nomination list to five entries
+
     if (nominationList.length < 5){
       //append selected nomination to list,with movie title and year
       setNominationList(nominationList => [...nominationList, {title: title, year: year, id: index, nominated: true}])
+    console.log("NOMS", nominationList)
 
-    setTitles(nominationList.map((movie)=> movie.title))
+    // setTitles(nominationList.map((movie)=> movie.title))
     console.log("NTITLES", titles);
     // return titles;
     }
@@ -50,7 +52,7 @@ export default function MovieBox() {
       //when nomination list is full, alert user
       setShow(true)
     }
-    console.log("NOMS", nominationList)
+setTitles(nominationList.map((movie)=> movie.title))
     // if (nominationList.id === id){
     //   setDisabled(true)
     // }
@@ -81,13 +83,13 @@ export default function MovieBox() {
     console.log("REMOVE", index.index, newList.length)
   }
 
-  const disableClick = (movie) => {
-    console.log("DISABLED",disabled, movie)
-    // if (disabled === false) { setDisabled(true)} 
-    setDisabled(movie);
+  // const disableClick = (movie) => {
+  //   console.log("DISABLED",disabled, movie)
+  //   // if (disabled === false) { setDisabled(true)} 
+  //   setDisabled(movie);
 
-    return setDisabled(true)
-  }
+  //   return setDisabled(true)
+  // }
 
 
   // const clickable = (title, year, index) => {
@@ -140,7 +142,7 @@ export default function MovieBox() {
   //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie, index)=>{
     // let key = 0
-    console.log("list item refreshed", titles)
+    // console.log("list item refreshed", titles)
     return (
       <li>
         {/* prevent default to stop page refresh on form submission */}
@@ -172,8 +174,8 @@ export default function MovieBox() {
           </button> */}
 
           {/* {clickable(movie.Title, movie.Year, index)} */}
+          
           {findNominated(movie.Title) ? <NotClickable/> : <Clickable handleNominate={handleNominate} title={movie.Title} year={movie.Year} index={index}/>}
-          {/* {movie.nominated && <NotClickable/>} */}
        </form> 
        
       </li> 
@@ -286,15 +288,6 @@ const renderedNoms = nominationsListView(nominationList)
         </Card>
       </CardDeck>
 
-      <Button class="inactive" >Nominate</Button>
-      <Button class="inactive" >Nominate</Button>
-      <Button class="inactive" >Nominate</Button>
-      <Button 
-        class="inactive" 
-        disabled={disabled}
-        onClick={()=> {setDisabled(true)}}
-        >Nominate
-      </Button>
 
     </div>
   );
