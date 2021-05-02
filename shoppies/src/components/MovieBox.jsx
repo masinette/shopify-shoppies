@@ -2,6 +2,8 @@ import { Form, Card, ToggleButton, Button, CardDeck, InputGroup, Col, Alert, But
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './MovieBox.css';
+import './buttons/Clickable';
+import Clickable from './buttons/Clickable';
 
 export default function MovieBox() {
   const [movieTitle, setMovieTitle] = useState("");
@@ -29,17 +31,19 @@ export default function MovieBox() {
   }, [omdbUrl])
   
   //handle selection of 'nominate' button, add selected movie to nominations list
-  function handleNominate(title, year, id){
+  function handleNominate(title, year, index){
     // setNominated(true) [DISABLES ALL THE BUTTONS]
+    console.log("INDEX", index)
     //limit nomination list to five entries
     if (nominationList.length < 5){
       //append selected nomination to list,with movie title and year
-      setNominationList(nominationList => [...nominationList, {title: title, year: year, id: id}])
+      setNominationList(nominationList => [...nominationList, {title: title, year: year, id: index, nominated: true}])
     }
     if (nominationList.length === 4){
       //when nomination list is full, alert user
       setShow(true)
     }
+    console.log("NOMS", nominationList)
     // if (nominationList.id === id){
     //   setDisabled(true)
     // }
@@ -70,50 +74,93 @@ export default function MovieBox() {
     console.log("REMOVE", index.index, newList.length)
   }
 
-  const disableClick = (id) => {
-    console.log("DISABLED",disabled)
+  const disableClick = (movie) => {
+    console.log("DISABLED",disabled, movie)
     // if (disabled === false) { setDisabled(true)} 
-    // setDisabled(true);
+    setDisabled(movie);
+
+    return setDisabled(true)
   }
+
+
+  const clickable = (title, year, index) => {
+    return (
+    <button 
+      variant="primary" 
+      type="submit" 
+      disabled={false} 
+      onClick={(event) => {
+        // event.preventDefault()
+        handleNominate( title, year, index )
+
+        }
+      }
+    >
+      Nominate
+    </button>
+    )}
+
+    const unclickable = (title, year, index) => {
+      return (
+      <button 
+        variant="primary" 
+        type="submit" 
+        disabled={true} 
+        // onClick={(event) => {
+        //   // event.preventDefault()
+        //   handleNominate( title, year, index )
+  
+        //   }
+        // }
+      >
+        Nominate
+      </button>
+      )}
 
 
   //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie, index)=>{
     // let key = 0
+    console.log("list item refreshed")
     return (
       <li>
+        {/* prevent default to stop page refresh on form submission */}
         <form onSubmit={(event)=> event.preventDefault()}>
-          {movie.Title} ({movie.Year})
+          {movie.Title} ({movie.Year}) {index}
 
-          <Button 
-            disabled={disabled}
-            class="active"
-            id={movie.title}
+          {/* <button 
+            id={index}
+            // class="active"
+            // id={generateID()}
             variant="primary" 
             type="submit" 
-
             // onChange={(e)=> 
             //   // console.log("changed")
             //   // setDisabled(e.target.disabled)
             // }
-
+            disabled={disabled}
+            
+            
             onClick={(event) => {
               // event.preventDefault()
-              // disableClick()
-              setDisabled(true)
-              handleNominate( movie.Title, movie.Year)
-              }
+              handleNominate( movie.Title, movie.Year, index )
+              // disableClick(movie.nominated) //undefined
+              // setDisabled(movie.nominated)
             }
-            >
+          }
+          >
             Nominate
-          </Button>
+          </button> */}
 
-          {/* <Button class="inactive" disabled>Nominate</Button> */}
-          
+          {/* {clickable(movie.Title, movie.Year, index)} */}
+          <Clickable handleNominate={handleNominate} title={movie.Title} year={movie.Year} index={index}/>
+          {unclickable}
        </form> 
+       
       </li> 
     )
   });
+
 
   function nominationsListView(nominationList){
     const nominationListView = nominationList.map((movie, index)=>{
@@ -123,7 +170,7 @@ export default function MovieBox() {
           <form onSubmit={(event)=> event.preventDefault()}>
             {movie.title} ({movie.year})
             <Button 
-              id={index}
+              id={movie.index}
               variant="info" 
               type="submit" 
               onClick={(event) => {
@@ -142,6 +189,26 @@ export default function MovieBox() {
   } 
 
 const renderedNoms = nominationsListView(nominationList)
+
+
+// const disableButton = (id) => {
+//   //map over nomination list, return new array
+//   let chosenNoms = moviesList.map((movie)=>{
+//     if (movie.id === id){
+//       return {
+//         ...moviesList
+//       }
+//     }
+//     return moviesList
+//   })
+  
+// }
+
+
+
+
+
+
 
 
   return (
