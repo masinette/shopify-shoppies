@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import './MovieBox.css';
 import './buttons/Clickable';
 import Clickable from './buttons/Clickable';
+import NotClickable from './buttons/NotClickable';
+
 
 export default function MovieBox() {
   const [movieTitle, setMovieTitle] = useState("");
@@ -12,6 +14,7 @@ export default function MovieBox() {
   const [nominationList, setNominationList] = useState([]);
   const [disabled, setDisabled] = useState(false)
   const [show, setShow] = useState(false);
+    const [titles, setTitles] = useState([]);
   // const [checked, setChecked] = useState(false, disabled);
 
 //query the omdB api for movie title, refresh on url changes
@@ -38,6 +41,10 @@ export default function MovieBox() {
     if (nominationList.length < 5){
       //append selected nomination to list,with movie title and year
       setNominationList(nominationList => [...nominationList, {title: title, year: year, id: index, nominated: true}])
+
+    setTitles(nominationList.map((movie)=> movie.title))
+    console.log("NTITLES", titles);
+    // return titles;
     }
     if (nominationList.length === 4){
       //when nomination list is full, alert user
@@ -83,45 +90,57 @@ export default function MovieBox() {
   }
 
 
-  const clickable = (title, year, index) => {
-    return (
-    <button 
-      variant="primary" 
-      type="submit" 
-      disabled={false} 
-      onClick={(event) => {
-        // event.preventDefault()
-        handleNominate( title, year, index )
+  // const clickable = (title, year, index) => {
+  //   return (
+  //   <button 
+  //     variant="primary" 
+  //     type="submit" 
+  //     disabled={false} 
+  //     onClick={(event) => {
+  //       // event.preventDefault()
+  //       handleNominate( title, year, index )
 
-        }
-      }
-    >
-      Nominate
-    </button>
-    )}
+  //       }
+  //     }
+  //   >
+  //     Nominate
+  //   </button>
+  //   )}
 
-    const unclickable = (title, year, index) => {
-      return (
-      <button 
-        variant="primary" 
-        type="submit" 
-        disabled={true} 
-        // onClick={(event) => {
-        //   // event.preventDefault()
-        //   handleNominate( title, year, index )
+  //   const unclickable = (title, year, index) => {
+  //     return (
+  //     <button 
+  //       variant="primary" 
+  //       type="submit" 
+  //       disabled={true} 
+  //       // onClick={(event) => {
+  //       //   // event.preventDefault()
+  //       //   handleNominate( title, year, index )
   
-        //   }
-        // }
-      >
-        Nominate
-      </button>
-      )}
+  //       //   }
+  //       // }
+  //     >
+  //       Nominate
+  //     </button>
+  //     )}
 
+
+
+
+  const findNominated = (mtitle) => {
+    const found = titles.find(title => title === mtitle)
+    if (found) {
+      return true;
+    } else {
+      return false;
+    }
+    console.log("FOUND",found);
+  }
 
   //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie, index)=>{
     // let key = 0
-    console.log("list item refreshed")
+    console.log("list item refreshed", titles)
     return (
       <li>
         {/* prevent default to stop page refresh on form submission */}
@@ -153,8 +172,8 @@ export default function MovieBox() {
           </button> */}
 
           {/* {clickable(movie.Title, movie.Year, index)} */}
-          <Clickable handleNominate={handleNominate} title={movie.Title} year={movie.Year} index={index}/>
-          {unclickable}
+          {findNominated(movie.Title) ? <NotClickable/> : <Clickable handleNominate={handleNominate} title={movie.Title} year={movie.Year} index={index}/>}
+          {/* {movie.nominated && <NotClickable/>} */}
        </form> 
        
       </li> 
