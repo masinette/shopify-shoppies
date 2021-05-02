@@ -93,15 +93,15 @@ export default function MovieBox() {
 
   //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie, index)=>{
-
+    console.log("TITLES", titles)
     return (
       <li>
         {/* prevent default to stop page refresh on form submission */}
         <form onSubmit={(event)=> event.preventDefault()}>
           {movie.Title} ({movie.Year}) {index}
-          
+
           {/* if movie is already nominated, disable to nominate button */}
-          {findNominated(movie.Title) ? <NotClickable/> : <Clickable handleNominate={handleNominate} title={movie.Title} year={movie.Year} index={index}/>}
+          {findNominated(movie.Title) ? <NotClickable/> : <Clickable handleNominate={handleNominate} title={movie.Title} year={movie.Year} index={index} />}
        </form> 
        
       </li> 
