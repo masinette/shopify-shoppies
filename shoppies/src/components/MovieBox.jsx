@@ -14,7 +14,7 @@ export default function MovieBox() {
   const [nominationList, setNominationList] = useState([]);
   const [disabled, setDisabled] = useState(false)
   const [show, setShow] = useState(false);
-    const [titles, setTitles] = useState([]);
+  const [titles, setTitles] = useState([]);
   // const [checked, setChecked] = useState(false, disabled);
 
 //query the omdB api for movie title, refresh on url changes
@@ -35,28 +35,23 @@ export default function MovieBox() {
   
   //handle selection of 'nominate' button, add selected movie to nominations list
   function handleNominate(title, year, index){
-    // setNominated(true) [DISABLES ALL THE BUTTONS]
-    // console.log("INDEX", index)
     //limit nomination list to five entries
-
     if (nominationList.length < 5){
       //append selected nomination to list,with movie title and year
       setNominationList(nominationList => [...nominationList, {title: title, year: year, id: index, nominated: true}])
-    console.log("NOMS", nominationList)
 
-    // setTitles(nominationList.map((movie)=> movie.title))
-    console.log("NTITLES", titles);
     // return titles;
     }
-    if (nominationList.length === 4){
       //when nomination list is full, alert user
+    if (nominationList.length === 4){
       setShow(true)
     }
-setTitles(nominationList.map((movie)=> movie.title))
-    // if (nominationList.id === id){
-    //   setDisabled(true)
-    // }
+
+    return setTitles(nominationList.map((movie)=> movie.title))
   }
+  
+    console.log("NTITLES", titles);
+  console.log("NOMS", nominationList)
 
 
   function AlertDismissibleExample() {
@@ -80,11 +75,13 @@ setTitles(nominationList.map((movie)=> movie.title))
     const newList = nominationList.filter(nom => nom.title !== title)
     //replace nominations list with NEW filtered list. Do not splice as it changes list in state
       setNominationList(newList)
+      setTitles(newList.map((movie)=> movie.title))
     console.log("REMOVE", index.index, newList.length)
   }
 
 
   const findNominated = (mtitle) => {
+    //check if clicked title is in nomination list
     const found = titles.find(title => title === mtitle)
     if (found) {
       return true;
@@ -103,6 +100,7 @@ setTitles(nominationList.map((movie)=> movie.title))
         <form onSubmit={(event)=> event.preventDefault()}>
           {movie.Title} ({movie.Year}) {index}
           
+          {/* if movie is already nominated, disable to nominate button */}
           {findNominated(movie.Title) ? <NotClickable/> : <Clickable handleNominate={handleNominate} title={movie.Title} year={movie.Year} index={index}/>}
        </form> 
        
