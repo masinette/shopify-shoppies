@@ -70,7 +70,7 @@ export default function MovieBox() {
     console.log("REMOVE", index.index, newList.length)
   }
 
-  const disableClick = () => {
+  const disableClick = (id) => {
     console.log("DISABLED",disabled)
     // if (disabled === false) { setDisabled(true)} 
     // setDisabled(true);
@@ -99,8 +99,8 @@ export default function MovieBox() {
 
             onClick={(event) => {
               // event.preventDefault()
-              // {disableClick()},
-              // setDisabled(true)
+              // disableClick()
+              setDisabled(true)
               handleNominate( movie.Title, movie.Year)
               }
             }
@@ -199,6 +199,17 @@ const renderedNoms = nominationsListView(nominationList)
           </Card.Body>
         </Card>
       </CardDeck>
+
+      <Button class="inactive" >Nominate</Button>
+      <Button class="inactive" >Nominate</Button>
+      <Button class="inactive" >Nominate</Button>
+      <Button 
+        class="inactive" 
+        disabled={disabled}
+        onClick={()=> {setDisabled(true)}}
+        >Nominate
+      </Button>
+
     </div>
   );
 }
