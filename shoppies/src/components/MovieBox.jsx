@@ -83,51 +83,6 @@ setTitles(nominationList.map((movie)=> movie.title))
     console.log("REMOVE", index.index, newList.length)
   }
 
-  // const disableClick = (movie) => {
-  //   console.log("DISABLED",disabled, movie)
-  //   // if (disabled === false) { setDisabled(true)} 
-  //   setDisabled(movie);
-
-  //   return setDisabled(true)
-  // }
-
-
-  // const clickable = (title, year, index) => {
-  //   return (
-  //   <button 
-  //     variant="primary" 
-  //     type="submit" 
-  //     disabled={false} 
-  //     onClick={(event) => {
-  //       // event.preventDefault()
-  //       handleNominate( title, year, index )
-
-  //       }
-  //     }
-  //   >
-  //     Nominate
-  //   </button>
-  //   )}
-
-  //   const unclickable = (title, year, index) => {
-  //     return (
-  //     <button 
-  //       variant="primary" 
-  //       type="submit" 
-  //       disabled={true} 
-  //       // onClick={(event) => {
-  //       //   // event.preventDefault()
-  //       //   handleNominate( title, year, index )
-  
-  //       //   }
-  //       // }
-  //     >
-  //       Nominate
-  //     </button>
-  //     )}
-
-
-
 
   const findNominated = (mtitle) => {
     const found = titles.find(title => title === mtitle)
@@ -141,39 +96,12 @@ setTitles(nominationList.map((movie)=> movie.title))
 
   //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie, index)=>{
-    // let key = 0
-    // console.log("list item refreshed", titles)
+
     return (
       <li>
         {/* prevent default to stop page refresh on form submission */}
         <form onSubmit={(event)=> event.preventDefault()}>
           {movie.Title} ({movie.Year}) {index}
-
-          {/* <button 
-            id={index}
-            // class="active"
-            // id={generateID()}
-            variant="primary" 
-            type="submit" 
-            // onChange={(e)=> 
-            //   // console.log("changed")
-            //   // setDisabled(e.target.disabled)
-            // }
-            disabled={disabled}
-            
-            
-            onClick={(event) => {
-              // event.preventDefault()
-              handleNominate( movie.Title, movie.Year, index )
-              // disableClick(movie.nominated) //undefined
-              // setDisabled(movie.nominated)
-            }
-          }
-          >
-            Nominate
-          </button> */}
-
-          {/* {clickable(movie.Title, movie.Year, index)} */}
           
           {findNominated(movie.Title) ? <NotClickable/> : <Clickable handleNominate={handleNominate} title={movie.Title} year={movie.Year} index={index}/>}
        </form> 
@@ -210,25 +138,6 @@ setTitles(nominationList.map((movie)=> movie.title))
   } 
 
 const renderedNoms = nominationsListView(nominationList)
-
-
-// const disableButton = (id) => {
-//   //map over nomination list, return new array
-//   let chosenNoms = moviesList.map((movie)=>{
-//     if (movie.id === id){
-//       return {
-//         ...moviesList
-//       }
-//     }
-//     return moviesList
-//   })
-  
-// }
-
-
-
-
-
 
 
 
@@ -287,6 +196,7 @@ const renderedNoms = nominationsListView(nominationList)
           </Card.Body>
         </Card>
       </CardDeck>
+
 
 
     </div>
