@@ -35,26 +35,29 @@ export default function MovieBox() {
   
   //handle selection of 'nominate' button, add selected movie to nominations list
   function handleNominate(title, year, index){
+          // setTitles(nominationList.map((movie)=> movie.title))
+
     //limit nomination list to five entries
     if (nominationList.length < 5){
       //append selected nomination to list,with movie title and year
       setNominationList(nominationList => [...nominationList, {title: title, year: year, id: index, nominated: true}])
 
-    // return titles;
+      // setTitles(nominationList.map((movie)=> movie.title + movie.year))
     }
-      //when nomination list is full, alert user
+    //when nomination list is full, alert user
     if (nominationList.length === 4){
       setShow(true)
     }
 
-    return setTitles(nominationList.map((movie)=> movie.title))
+    return setTitles(nominationList.map((movie)=> movie.title + movie.year))
+
   }
   
     console.log("NTITLES", titles);
   console.log("NOMS", nominationList)
 
 
-  function AlertDismissibleExample() {
+  function NominationLimitAlert() {
     if (show) {
       return (
         <Alert variant="info" onClose={() => setShow(false)} dismissible>
@@ -70,19 +73,19 @@ export default function MovieBox() {
     return "";
   }
 
-  const handleRemoveNomination = (index, title) => {
+  const handleRemoveNomination = (index, title, year) => {
     //remove movie from nomination list
-    const newList = nominationList.filter(nom => nom.title !== title)
+    const newList = nominationList.filter(nom => nom.title+nom.year !== title+year)
     //replace nominations list with NEW filtered list. Do not splice as it changes list in state
       setNominationList(newList)
-      setTitles(newList.map((movie)=> movie.title))
+      setTitles(newList.map((movie)=> movie.title+movie.year))
     console.log("REMOVE", index.index, newList.length)
   }
 
 
-  const findNominated = (mtitle) => {
+  const findNominated = (movieTitle, movieYear) => {
     //check if clicked title is in nomination list
-    const found = titles.find(title => title === mtitle)
+    const found = titles.find(title => title === movieTitle+movieYear)
     if (found) {
       return true;
     } else {
@@ -93,7 +96,7 @@ export default function MovieBox() {
 
   //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie, index)=>{
-    console.log("TITLES", titles)
+    // console.log("TITLES", titles)
     return (
       <li>
         {/* prevent default to stop page refresh on form submission */}
@@ -101,7 +104,14 @@ export default function MovieBox() {
           {movie.Title} ({movie.Year}) {index}
 
           {/* if movie is already nominated, disable to nominate button */}
-          {findNominated(movie.Title) ? <NotClickable/> : <Clickable handleNominate={handleNominate} title={movie.Title} year={movie.Year} index={index} />}
+          {findNominated(movie.Title, movie.Year) ? <NotClickable/> : <Clickable 
+            handleNominate={handleNominate} 
+            title={movie.Title} 
+            year={movie.Year} 
+            index={index} 
+            setTitles={setTitles}
+            nominationList={nominationList}
+            />}
        </form> 
        
       </li> 
@@ -122,7 +132,7 @@ export default function MovieBox() {
               type="submit" 
               onClick={(event) => {
                 event.preventDefault()
-                handleRemoveNomination( {index}, movie.title )
+                handleRemoveNomination( {index}, movie.title, movie.year )
                 }
               }
             >
@@ -190,7 +200,7 @@ const renderedNoms = nominationsListView(nominationList)
               { renderedNoms }
               </ul>
             </Card.Text>
-            <AlertDismissibleExample />
+            <NominationLimitAlert />
           </Card.Body>
         </Card>
       </CardDeck>

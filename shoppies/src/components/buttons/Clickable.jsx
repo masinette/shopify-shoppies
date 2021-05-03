@@ -10,6 +10,8 @@ export default function Clickable(props){
         disabled={false} 
         onClick={(event) => {
           // event.preventDefault()
+          // props.setTitles( props.nominationList )
+          props.setTitles(props.nominationList.map((movie)=> movie.title))
           props.handleNominate( props.title, props.year, props.index )
           }
         }
