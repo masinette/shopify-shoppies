@@ -1,7 +1,7 @@
 import {Button} from 'react-bootstrap';
 
 export default function Clickable(props){
-
+  console.log(props.titles)
   return (
 
       <Button 
@@ -11,7 +11,6 @@ export default function Clickable(props){
         onClick={(event) => {
           // event.preventDefault()
           // props.setTitles( props.nominationList )
-          props.setTitles(props.nominationList.map((movie)=> movie.title))
           props.handleNominate( props.title, props.year, props.index )
           }
         }

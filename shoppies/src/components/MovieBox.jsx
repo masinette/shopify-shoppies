@@ -33,10 +33,9 @@ export default function MovieBox() {
     // .catch()
   }, [omdbUrl])
   
-  //handle selection of 'nominate' button, add selected movie to nominations list
-  function handleNominate(title, year, index){
-          // setTitles(nominationList.map((movie)=> movie.title))
 
+  //handle selection of 'nominate' button, add selected movie to nominations list
+  const handleNominate = (title, year, index) =>{
     //limit nomination list to five entries
     if (nominationList.length < 5){
       //append selected nomination to list,with movie title and year
@@ -48,13 +47,13 @@ export default function MovieBox() {
     if (nominationList.length === 4){
       setShow(true)
     }
-
-    return setTitles(nominationList.map((movie)=> movie.title + movie.year))
-
-  }
   
+    const titlesList = nominationList.map((movie)=> movie.title + movie.year)
+    setTitles(titlesList)
+  }
+
+    console.log("NOMS", nominationList)
     console.log("NTITLES", titles);
-  console.log("NOMS", nominationList)
 
 
   function NominationLimitAlert() {
@@ -78,10 +77,11 @@ export default function MovieBox() {
     const newList = nominationList.filter(nom => nom.title+nom.year !== title+year)
     //replace nominations list with NEW filtered list. Do not splice as it changes list in state
       setNominationList(newList)
-      setTitles(newList.map((movie)=> movie.title+movie.year))
+      setTitles(newList.map((movie)=> movie.title + movie.year))
   }
 
   const findNominated = (movieTitle, movieYear) => {
+    
     //check if clicked title is in nomination list
     const found = titles.find(title => title === movieTitle+movieYear)
     if (found) {
@@ -108,6 +108,7 @@ export default function MovieBox() {
             index={index} 
             setTitles={setTitles}
             nominationList={nominationList}
+            titles={titles}
             />}
        </form> 
        
