@@ -33,12 +33,12 @@ export default function MovieBox() {
     // .catch()
   }, [omdbUrl])
   
-//update titlelist on 'nominate' button click, to disable button on click
+//update titlelist any time niominationlist is changed 
+//updates 'nominate' button click, to disable button on click
   useEffect(()=>{
     const titlesList = nominationList.map((movie)=> movie.title + movie.year)
     setTitles(titlesList)
   }, [nominationList])
-
 
   //handle selection of 'nominate' button, add selected movie to nominations list
   const handleNominate = (title, year, index) =>{
@@ -46,21 +46,14 @@ export default function MovieBox() {
     if (nominationList.length < 5){
       //append selected nomination to list,with movie title and year
       setNominationList(nominationList => [...nominationList, {title: title, year: year, id: index, nominated: true}])
-
-      // setTitles(nominationList.map((movie)=> movie.title + movie.year))
     }
     //when nomination list is full, alert user
     if (nominationList.length === 4){
       setShow(true)
     }
-  
-    const titlesList = nominationList.map((movie)=> movie.title + movie.year)
-    setTitles(titlesList)
+    // const titlesList = nominationList.map((movie)=> movie.title + movie.year)
+    // setTitles(titlesList)
   }
-
-    console.log("NOMS", nominationList)
-    console.log("NTITLES", titles);
-
 
   function NominationLimitAlert() {
     if (show) {
@@ -85,16 +78,10 @@ export default function MovieBox() {
     const newList = nominationList.filter(nom => nom.title+nom.year !== title+year)
     //replace nominations list with NEW filtered list. Do not splice as it changes list in state
       setNominationList(newList)
-      setTitles(newList.map((movie)=> movie.title + movie.year))
+      // setTitles(newList.map((movie)=> movie.title + movie.year))
   }
 
-
-
-
-
-
   const findNominated = (movieTitle, movieYear) => {
-    
     //check if clicked title is in nomination list
     const found = titles.find(title => title === movieTitle+movieYear)
     if (found) {
@@ -104,14 +91,13 @@ export default function MovieBox() {
     }
   }
 
-  //map through movies from user input and add to results list
   const moviesList = movieInfo.map((movie, index)=>{
-    // console.log("TITLES", titles)
+  //map through movies from user input and add to results list
     return (
       <li>
         {/* prevent default to stop page refresh on form submission */}
         <form onSubmit={(event)=> event.preventDefault()}>
-          {movie.Title} ({movie.Year}) {index}
+          {movie.Title} ({movie.Year})
 
           {/* if movie is already nominated, disable to nominate button */}
           {findNominated(movie.Title, movie.Year) ? <NotClickable/> : <Clickable 
