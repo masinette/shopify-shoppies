@@ -33,6 +33,12 @@ export default function MovieBox() {
     // .catch()
   }, [omdbUrl])
   
+//update titlelist on 'nominate' button click, to disable button on click
+  useEffect(()=>{
+    const titlesList = nominationList.map((movie)=> movie.title + movie.year)
+    setTitles(titlesList)
+  }, [nominationList])
+
 
   //handle selection of 'nominate' button, add selected movie to nominations list
   const handleNominate = (title, year, index) =>{
@@ -72,6 +78,8 @@ export default function MovieBox() {
     return "";
   }
 
+
+
   const handleRemoveNomination = (index, title, year) => {
     //remove movie from nomination list
     const newList = nominationList.filter(nom => nom.title+nom.year !== title+year)
@@ -79,6 +87,11 @@ export default function MovieBox() {
       setNominationList(newList)
       setTitles(newList.map((movie)=> movie.title + movie.year))
   }
+
+
+
+
+
 
   const findNominated = (movieTitle, movieYear) => {
     
