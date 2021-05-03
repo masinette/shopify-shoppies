@@ -79,9 +79,7 @@ export default function MovieBox() {
     //replace nominations list with NEW filtered list. Do not splice as it changes list in state
       setNominationList(newList)
       setTitles(newList.map((movie)=> movie.title+movie.year))
-    console.log("REMOVE", index.index, newList.length)
   }
-
 
   const findNominated = (movieTitle, movieYear) => {
     //check if clicked title is in nomination list
@@ -91,7 +89,6 @@ export default function MovieBox() {
     } else {
       return false;
     }
-    console.log("FOUND",found);
   }
 
   //map through movies from user input and add to results list
@@ -121,7 +118,7 @@ export default function MovieBox() {
 
   function nominationsListView(nominationList){
     const nominationListView = nominationList.map((movie, index)=>{
-      // const index = nominationList.indexOf(movie.title)
+
       return (
         <li>
           <form onSubmit={(event)=> event.preventDefault()}>
