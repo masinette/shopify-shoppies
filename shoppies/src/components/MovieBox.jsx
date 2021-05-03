@@ -173,31 +173,9 @@ const renderedNoms = nominationsListView(nominationList)
 
       <CardDeck>
 
-        {/* <Card>
-          <Card.Header as="h5">Results for "{movieTitle}"</Card.Header>
-          <Card.Body>
-            <Card.Text>
-              <ul>
-                { moviesList }
-              </ul>
-            </Card.Text>
-          </Card.Body>
-        </Card> */}
+        <MovieCard header= "Results for: " cardTitle={movieTitle} list={moviesList}/>
+        <MovieCard header= "Nominations" list={renderedNoms}/>
 
-      <MovieCard movieTitle={movieTitle} moviesList={moviesList}/>
-      <MovieCard />
-        <Card>
-          <Card.Header as="h5">Nominations</Card.Header>
-          <Card.Body>
-            {/* <Card.Title>Special title treatment</Card.Title> */}
-            <Card.Text>
-              <ul>
-              { renderedNoms }
-              </ul>
-            </Card.Text>
-            <NominationLimitAlert />
-          </Card.Body>
-        </Card>
       </CardDeck>
 
     </div>
