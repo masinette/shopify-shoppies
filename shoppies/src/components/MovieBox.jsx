@@ -5,6 +5,7 @@ import './MovieBox.css';
 import './buttons/Clickable';
 import Clickable from './buttons/Clickable';
 import NotClickable from './buttons/NotClickable';
+import MovieCard from './cards/MovieCard';
 
 
 export default function MovieBox() {
@@ -172,18 +173,19 @@ const renderedNoms = nominationsListView(nominationList)
 
       <CardDeck>
 
-        <Card>
+        {/* <Card>
           <Card.Header as="h5">Results for "{movieTitle}"</Card.Header>
           <Card.Body>
-            {/* <Card.Title>{movieTitle}</Card.Title> */}
             <Card.Text>
               <ul>
                 { moviesList }
               </ul>
             </Card.Text>
           </Card.Body>
-        </Card>
+        </Card> */}
 
+      <MovieCard movieTitle={movieTitle} moviesList={moviesList}/>
+      <MovieCard />
         <Card>
           <Card.Header as="h5">Nominations</Card.Header>
           <Card.Body>
@@ -197,8 +199,6 @@ const renderedNoms = nominationsListView(nominationList)
           </Card.Body>
         </Card>
       </CardDeck>
-
-
 
     </div>
   );
