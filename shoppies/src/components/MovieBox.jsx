@@ -104,10 +104,6 @@ export default function MovieBox() {
             handleNominate={handleNominate} 
             title={movie.Title} 
             year={movie.Year} 
-            index={index} 
-            setTitles={setTitles}
-            nominationList={nominationList}
-            titles={titles}
             />}
        </form> 
        
