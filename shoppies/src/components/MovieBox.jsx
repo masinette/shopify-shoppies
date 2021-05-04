@@ -13,7 +13,7 @@ export default function MovieBox() {
   const omdbUrl = `http://www.omdbapi.com/?apikey=91c918d&s=${movieTitle}&type=movie`;
   const [movieInfo, setMovieInfo] = useState([{ Search: "", Year: "", Title: ""}]);
   const [nominationList, setNominationList] = useState([]);
-  const [disabled, setDisabled] = useState(false)
+  // const [disabled, setDisabled] = useState(false)
   const [show, setShow] = useState(false);
   const [titles, setTitles] = useState([]);
   // const [checked, setChecked] = useState(false, disabled);
@@ -52,8 +52,6 @@ export default function MovieBox() {
     if (nominationList.length === 4){
       setShow(true)
     }
-    // const titlesList = nominationList.map((movie)=> movie.title + movie.year)
-    // setTitles(titlesList)
   }
 
   function NominationLimitAlert() {
@@ -71,7 +69,6 @@ export default function MovieBox() {
     }
     return "";
   }
-
 
 
   const handleRemoveNomination = (index, title, year) => {
@@ -106,8 +103,7 @@ export default function MovieBox() {
             title={movie.Title} 
             year={movie.Year} 
             />}
-       </form> 
-       
+        </form> 
       </li> 
     )
   });
@@ -144,40 +140,38 @@ const renderedNoms = nominationsListView(nominationList)
 
 
   return (
-    <div>
-        <Card>
-          <Card.Body>
-            <Card.Text>
-              <Col>
-                <Form onSubmit={(event)=> event.preventDefault()} >
-                  <Form.Group>
-                    <Form.Label>Movie Title</Form.Label>
+    <div class="wrapper">
+      <Card>
+        <Card.Body>
+          <Card.Text>
+            <Col>
+              <Form onSubmit={(event)=> event.preventDefault()} >
+                <Form.Group>
+                  <Form.Label>Movie Title</Form.Label>
 
-                    <InputGroup className="mb-2">
-                      <InputGroup.Prepend>
-                        <InputGroup.Text>&#128269;</InputGroup.Text>
-                      </InputGroup.Prepend>
-                        <Form.Control 
-                          type="text" 
-                          placeholder= "Enter movie title here..." 
-                          onChange={(event)=> setMovieTitle(event.target.value)}
-                        />
-                    </InputGroup>
-                    
-                  </Form.Group>
-                </Form>
-              </Col>
-            </Card.Text>
-          </Card.Body>
-        </Card>
+                  <InputGroup className="mb-2">
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>&#128269;</InputGroup.Text>
+                    </InputGroup.Prepend>
+                      <Form.Control 
+                        type="text" 
+                        placeholder= "Enter movie title here..." 
+                        onChange={(event)=> setMovieTitle(event.target.value)}
+                      />
+                  </InputGroup>
+                  
+                </Form.Group>
+              </Form>
+            </Col>
+          </Card.Text>
+          {nominationList.length>4 && <NominationLimitAlert />}
+        </Card.Body>
+      </Card>
 
       <CardDeck>
-
         <MovieCard header= "Results for: " cardTitle={movieTitle} list={moviesList}/>
         <MovieCard header= "Nominations" list={renderedNoms}/>
-
       </CardDeck>
-
     </div>
   );
 }

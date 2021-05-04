@@ -1,7 +1,7 @@
 import {Button} from 'react-bootstrap';
 
 export default function Clickable(props){
-  console.log(props.titles)
+
   return (
 
       <Button 
