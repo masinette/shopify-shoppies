@@ -135,38 +135,27 @@ export default function MovieBox() {
     return nominationListView
   } 
 
-const renderedNoms = nominationsListView(nominationList)
+  const renderedNoms = nominationsListView(nominationList)
 
 
 
   return (
     <div class="wrapper">
-      <Card>
-        <Card.Body>
-          <Card.Text>
-            <Col>
-              <Form onSubmit={(event)=> event.preventDefault()} >
-                <Form.Group>
-                  <Form.Label>Movie Title</Form.Label>
-
-                  <InputGroup className="mb-2">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text>&#128269;</InputGroup.Text>
-                    </InputGroup.Prepend>
-                      <Form.Control 
-                        type="text" 
-                        placeholder= "Enter movie title here..." 
-                        onChange={(event)=> setMovieTitle(event.target.value)}
-                      />
-                  </InputGroup>
-                  
-                </Form.Group>
-              </Form>
-            </Col>
-          </Card.Text>
-          {nominationList.length>4 && <NominationLimitAlert />}
-        </Card.Body>
-      </Card>
+      <Form onSubmit={(event)=> event.preventDefault()} >
+        <Form.Group>
+          <Form.Label>Movie Title</Form.Label>
+          <InputGroup className="mb-2">
+            <InputGroup.Prepend>
+              <InputGroup.Text>&#128269;</InputGroup.Text>
+            </InputGroup.Prepend>
+            <Form.Control 
+              type="text" 
+              placeholder= "Enter movie title here..." 
+              onChange={(event)=> setMovieTitle(event.target.value)}
+            />
+          </InputGroup>
+        </Form.Group>
+      </Form>
 
       <CardDeck>
         <MovieCard header= "Results for: " cardTitle={movieTitle} list={moviesList}/>
