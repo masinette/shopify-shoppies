@@ -4,6 +4,7 @@ import MovieBox from './components/MovieBox'
 function App() {
   return (
     <div className="App">
+    
       <div id="wrapper">
         <header className="App-header">
           <h1>

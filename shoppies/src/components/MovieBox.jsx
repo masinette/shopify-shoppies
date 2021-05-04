@@ -70,7 +70,6 @@ export default function MovieBox() {
     return "";
   }
 
-
   const handleRemoveNomination = (index, title, year) => {
     //remove movie from nomination list
     const newList = nominationList.filter(nom => nom.title+nom.year !== title+year)
@@ -108,7 +107,6 @@ export default function MovieBox() {
     )
   });
 
-
   function nominationsListView(nominationList){
     const nominationListView = nominationList.map((movie, index)=>{
 
@@ -138,13 +136,12 @@ export default function MovieBox() {
   const renderedNoms = nominationsListView(nominationList)
 
 
-
   return (
     <div class="wrapper">
       <Card>
         <Card.Body>
           <Card.Text>
-            <Col>
+            {/* <Col> */}
               <Form onSubmit={(event)=> event.preventDefault()} >
                 <Form.Group>
                   <Form.Label>Movie Title</Form.Label>
@@ -160,12 +157,13 @@ export default function MovieBox() {
                   </InputGroup>
                 </Form.Group>
               </Form>
-            </Col>
+            {/* </Col> */}
           </Card.Text>
         </Card.Body>
       </Card>
 
       {nominationList.length>4 && <NominationLimitAlert />}
+
       <CardDeck>
         <MovieCard header= "Results for: " cardTitle={movieTitle} list={moviesList}/>
         <MovieCard header= "Nominations" list={renderedNoms}/>
