@@ -88,6 +88,8 @@ export default function MovieBox() {
     }
   }
 
+
+//hold movieList in state to eliminate empty button?
   const moviesList = movieInfo.map((movie, index)=>{
   //map through movies from user input and add to results list
     return (
