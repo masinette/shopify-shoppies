@@ -16,6 +16,7 @@ export default function MovieBox() {
   // const [disabled, setDisabled] = useState(false)
   const [show, setShow] = useState(false);
   const [titles, setTitles] = useState([]);
+  // const [movieList, setMovieList] = useState([]);
   // const [checked, setChecked] = useState(false, disabled);
 
 //query the omdB api for movie title, refresh on url changes
@@ -88,24 +89,29 @@ export default function MovieBox() {
     }
   }
 
-
-//hold movieList in state to eliminate empty button?
   const moviesList = movieInfo.map((movie, index)=>{
   //map through movies from user input and add to results list
     return (
-      <li>
-        {/* prevent default to stop page refresh on form submission */}
-        <form onSubmit={(event)=> event.preventDefault()}>
-          {movie.Title} ({movie.Year})
 
-          {/* if movie is already nominated, disable to nominate button */}
-          {findNominated(movie.Title, movie.Year) ? <NotClickable/> : <Clickable 
-            handleNominate={handleNominate} 
-            title={movie.Title} 
-            year={movie.Year} 
-            />}
-        </form> 
-      </li> 
+      <div>
+      {/* wrap li in div to only render list element if it is populated */}
+      { movieInfo.length >1 &&
+        <li>
+          {/* prevent default to stop page refresh on form submission */}
+          <form onSubmit={(event)=> event.preventDefault()}>
+            {/* {movieInfo.length > 1} */}
+            {movie.Title} ({movie.Year})
+
+            {/* if movie is already nominated, disable to nominate button */}
+            {movieInfo.length > 1 && (findNominated(movie.Title, movie.Year) ? <NotClickable/> : <Clickable 
+              handleNominate={handleNominate} 
+              title={movie.Title} 
+              year={movie.Year} 
+              />)}
+          </form> 
+        </li> 
+      }
+      </div>
     )
   });
 
@@ -136,7 +142,6 @@ export default function MovieBox() {
   } 
 
   const renderedNoms = nominationsListView(nominationList)
-
 
   return (
     <div class="wrapper">
