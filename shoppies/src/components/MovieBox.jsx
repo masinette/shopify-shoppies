@@ -10,7 +10,7 @@ import MovieCard from './cards/MovieCard';
 
 export default function MovieBox() {
   const [movieTitle, setMovieTitle] = useState("");
-  const omdbUrl = `http://www.omdbapi.com/?apikey=91c918d&s=${movieTitle}&type=movie`;
+  const omdbUrl = `https://www.omdbapi.com/?apikey=91c918d&s=${movieTitle}&type=movie`;
   const [movieInfo, setMovieInfo] = useState([{ Search: "", Year: "", Title: ""}]);
   const [nominationList, setNominationList] = useState([]);
   // const [disabled, setDisabled] = useState(false)
