@@ -11,7 +11,7 @@ export default function Clickable(props){
         onClick={(event) => {
           // event.preventDefault()
           // props.setTitles( props.nominationList )
-          props.handleNominate( props.title, props.year, props.index )
+          props.handleNominate( props.title, props.year, props.index, props.poster )
           }
         }
       >

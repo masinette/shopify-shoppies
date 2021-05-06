@@ -11,7 +11,7 @@ import MovieCard from './cards/MovieCard';
 export default function MovieBox() {
   const [movieTitle, setMovieTitle] = useState("");
   const omdbUrl = `https://www.omdbapi.com/?apikey=91c918d&s=${movieTitle}&type=movie`;
-  const [movieInfo, setMovieInfo] = useState([{ Search: "", Year: "", Title: ""}]);
+  const [movieInfo, setMovieInfo] = useState([{ Search: "", Year: "", Title: "", Poster: ""}]);
   const [nominationList, setNominationList] = useState([]);
   // const [disabled, setDisabled] = useState(false)
   const [show, setShow] = useState(false);
@@ -43,11 +43,11 @@ export default function MovieBox() {
   }, [nominationList])
 
   //handle selection of 'nominate' button, add selected movie to nominations list
-  const handleNominate = (title, year, index) =>{
+  const handleNominate = (title, year, index, poster) =>{
     //limit nomination list to five entries
     if (nominationList.length < 5){
       //append selected nomination to list,with movie title and year
-      setNominationList(nominationList => [...nominationList, {title: title, year: year, id: index, nominated: true}])
+      setNominationList(nominationList => [...nominationList, {title: title, year: year, id: index, nominated: true, poster: poster}])
     }
     //when nomination list is full, alert user
     if (nominationList.length === 4){
@@ -99,7 +99,8 @@ export default function MovieBox() {
         <li>
           {/* prevent default to stop page refresh on form submission */}
           <form onSubmit={(event)=> event.preventDefault()}>
-            {/* {movieInfo.length > 1} */}
+          <img src={movie.Poster} class="movie-poster" alt="movie poster"/>
+
             {movie.Title} ({movie.Year})
 
             {/* if movie is already nominated, disable to nominate button */}
@@ -107,6 +108,7 @@ export default function MovieBox() {
               handleNominate={handleNominate} 
               title={movie.Title} 
               year={movie.Year} 
+              poster={movie.Poster}
               />)}
           </form> 
         </li> 
@@ -117,10 +119,11 @@ export default function MovieBox() {
 
   function nominationsListView(nominationList){
     const nominationListView = nominationList.map((movie, index)=>{
-
+      console.log("NOMS POSTER", movie)
       return (
         <li>
           <form onSubmit={(event)=> event.preventDefault()}>
+            <img src={movie.poster} class="movie-poster" alt="movie poster"/>
             {movie.title} ({movie.year})
             <Button 
               id={movie.index}

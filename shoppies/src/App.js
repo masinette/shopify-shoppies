@@ -10,7 +10,7 @@ function App() {
           <h1>
             The Shoppies
           </h1>
-        <MovieBox />
+          <MovieBox />
         </header>
       </div>
     </div>
