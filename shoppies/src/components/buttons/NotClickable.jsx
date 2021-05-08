@@ -6,6 +6,7 @@ export default function NotClickable(props){
 
       <Button 
         variant="primary" 
+        class="unclickable"
         type="submit" 
         disabled
         onClick={(event) => {

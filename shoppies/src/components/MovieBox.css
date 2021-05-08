@@ -1,9 +1,38 @@
 .card{
   margin-top: 20px;
 }
-.movie-poster{
-  height: 150px;
+.movie-card{
+  text-align: center;
+  /* width: 20em;
+  height: 35em; */
+}
+.movie-poster.card{
+  height: 10em;
+}
+img.card-img-top{
+  /* height: 100%; */
+  width: 15em;
 }
 ul {
   list-style: none;
 }
+.poster-wrapper{
+  background-image: url("https://www.clipartkey.com/mpngs/m/23-233889_movies-png-vector-vector-clipart-psd-movie-icon.png");
+  height: 10em;
+  width: 7em;
+  /* background-size: contain; */
+  /* background-repeat: no-repeat; */
+  /* display: inline-block; */
+  /* width: fill; */
+}
+button.btn.btn-primary:disabled{
+  background-color: inherit;
+  padding-top: 6px;
+  border-radius: 5px;
+  border-color: lightgrey;
+  color: grey;
+}
+/* .list{
+  display: flex;
+  flex-direction: column;
+} */

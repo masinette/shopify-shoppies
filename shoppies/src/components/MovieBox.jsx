@@ -90,41 +90,65 @@ export default function MovieBox() {
   }
 
   const moviesList = movieInfo.map((movie, index)=>{
+    const bgimage= "https://www.clipartkey.com/mpngs/m/23-233889_movies-png-vector-vector-clipart-psd-movie-icon.png"
   //map through movies from user input and add to results list
     return (
-
-      <div>
+      <Col>
+        <Card className="movie-card" >
       {/* wrap li in div to only render list element if it is populated */}
       { movieInfo.length >1 &&
+      <Card.Body>
         <li>
           {/* prevent default to stop page refresh on form submission */}
           <form onSubmit={(event)=> event.preventDefault()}>
-          <img src={movie.Poster} class="movie-poster" alt="movie poster"/>
+          
+          <div class="movie-poster">
+            <Card.Img variant="top" src={movie.Poster} />
+          </div>
 
+          {/* <div class="poster-wrapper">
+            <img src={movie.Poster} class="movie-poster" alt="movie poster"/>
+          </div> */}
+
+
+          <Card.Title>
             {movie.Title} ({movie.Year})
-
+          </Card.Title>
             {/* if movie is already nominated, disable to nominate button */}
-            {movieInfo.length > 1 && (findNominated(movie.Title, movie.Year) ? <NotClickable/> : <Clickable 
-              handleNominate={handleNominate} 
-              title={movie.Title} 
-              year={movie.Year} 
-              poster={movie.Poster}
-              />)}
+            <Card.Footer className="text-muted">
+              {movieInfo.length > 1 && (findNominated(movie.Title, movie.Year) ? <NotClickable/> : <Clickable 
+                handleNominate={handleNominate} 
+                title={movie.Title} 
+                year={movie.Year} 
+                poster={movie.Poster}
+                />)}
+            </Card.Footer>
+
           </form> 
         </li> 
+        </Card.Body>
       }
-      </div>
+      </Card>
+      </Col>
     )
   });
 
   function nominationsListView(nominationList){
     const nominationListView = nominationList.map((movie, index)=>{
-      console.log("NOMS POSTER", movie)
+
       return (
+        <Card className="movie-card" >
+        <Card.Body>
         <li>
           <form onSubmit={(event)=> event.preventDefault()}>
-            <img src={movie.poster} class="movie-poster" alt="movie poster"/>
+          <div class="movie-poster">
+            <Card.Img variant="top" src={movie.poster} />
+          </div>
+          <Card.Title>
             {movie.title} ({movie.year})
+          </Card.Title>
+
+          <Card.Footer className="text-muted">
             <Button 
               id={movie.index}
               variant="info" 
@@ -135,10 +159,13 @@ export default function MovieBox() {
                 }
               }
             >
-            Remove
-          </Button>
+              Remove
+            </Button>
+          </Card.Footer>
           </form>
         </li>
+        </Card.Body>
+        </Card>
       )
     }) 
     return nominationListView
