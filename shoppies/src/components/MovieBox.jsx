@@ -106,11 +106,6 @@ export default function MovieBox() {
             <Card.Img variant="top" src={movie.Poster} />
           </div>
 
-          {/* <div class="poster-wrapper">
-            <img src={movie.Poster} class="movie-poster" alt="movie poster"/>
-          </div> */}
-
-
           <Card.Title>
             {movie.Title} ({movie.Year})
           </Card.Title>
