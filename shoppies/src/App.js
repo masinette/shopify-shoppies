@@ -7,8 +7,10 @@ function App() {
     
       <div id="wrapper">
         <header className="App-header">
-          <h1>
-            The Shoppies
+          <h1 className="logo">
+            &#127916;
+              Welcome to The Shoppies Awards!
+            &#127916;
           </h1>
           <MovieBox />
         </header>

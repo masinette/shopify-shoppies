@@ -1,13 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&family=Ruda&display=swap');
 *{
   margin: 0 ;
   padding: 0;
+  Font-Family: 'Roboto Slab', Serif;
 }
 #wrapper {
   margin-left: 100px;
   margin-right: 100px;
   margin-top: 50px;
 }
-
+.logo{
+  color: #f77f00;
+  text-align: center;
+  Font-Family: 'Ruda', Sans-Serif;
+  font-weight: bold;
+}
 /* .App {
   text-align: center;
 }

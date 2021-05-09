@@ -183,7 +183,7 @@ export default function MovieBox() {
             {/* <Col> */}
               <Form onSubmit={(event)=> event.preventDefault()} >
                 <Form.Group>
-                  <Form.Label>Movie Title</Form.Label>
+                  <Form.Label><h5>Movie Title</h5></Form.Label>
                   <InputGroup className="mb-2">
                     <InputGroup.Prepend>
                       <InputGroup.Text>&#128269;</InputGroup.Text>
