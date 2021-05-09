@@ -103,12 +103,14 @@ export default function MovieBox() {
           <form onSubmit={(event)=> event.preventDefault()}>
           
           <div class="movie-poster">
-            <Card.Img variant="top" src={movie.Poster} />
-          </div>
+            <Card.Img 
+            // variant="top" 
+            src={movie.Poster} />
 
-          <Card.Title>
-            {movie.Title} ({movie.Year})
-          </Card.Title>
+            <Card.Title>
+              {movie.Title} ({movie.Year})
+            </Card.Title>
+          </div>
             {/* if movie is already nominated, disable to nominate button */}
             <Card.Footer className="text-muted">
               {movieInfo.length > 1 && (findNominated(movie.Title, movie.Year) ? <NotClickable/> : <Clickable 
@@ -132,16 +134,20 @@ export default function MovieBox() {
     const nominationListView = nominationList.map((movie, index)=>{
 
       return (
+        <Col>
         <Card className="movie-card" >
         <Card.Body>
         <li>
           <form onSubmit={(event)=> event.preventDefault()}>
+
           <div class="movie-poster">
-            <Card.Img variant="top" src={movie.poster} />
+            <Card.Img 
+            // variant="top" 
+            src={movie.poster} />
+            <Card.Title>
+              {movie.title} ({movie.year})
+            </Card.Title>
           </div>
-          <Card.Title>
-            {movie.title} ({movie.year})
-          </Card.Title>
 
           <Card.Footer className="text-muted">
             <Button 
@@ -161,6 +167,7 @@ export default function MovieBox() {
         </li>
         </Card.Body>
         </Card>
+        </Col>
       )
     }) 
     return nominationListView
@@ -198,7 +205,9 @@ export default function MovieBox() {
 
       <CardDeck>
         <MovieCard header= "Results for: " cardTitle={movieTitle} list={moviesList}/>
-        <MovieCard header= "Nominations" list={renderedNoms}/>
+        <div className="nom-card">
+          <MovieCard header= "Nominations" list={renderedNoms}/>
+        </div>
       </CardDeck>
     </div>
   );

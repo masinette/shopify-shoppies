@@ -12,7 +12,7 @@ export default function MovieCard(props){
       <Card.Header as="h5"> {props.header} {props.cardTitle}</Card.Header>
       <Card.Body>
         <Card.Text>
-          <ul className="list">
+          <ul>
             {props.list}
           </ul>
         </Card.Text>
