@@ -66,6 +66,18 @@ div.card-body{
   background-color: #fcbf49;
 }
 .nom-card .movie-card{
-    background-color: black;
+  background-color: black;
+  position: relative;
+  animation: slide-nom 5s infinite;
+  animation-iteration-count: 1;
+  animation-duration: 1s;
+}
 
+.nom-card {
+  animation-timing-function: linear;
+}
+
+@keyframes slide-nom {
+  from {left: -100px;}
+  to {left: 0px;}
 }
