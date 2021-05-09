@@ -201,7 +201,7 @@ export default function MovieBox() {
         </Card.Body>
       </Card>
 
-      {nominationList.length>4 && <NominationLimitAlert />}
+        {nominationList.length>4 && <NominationLimitAlert />}
 
       <CardDeck>
         <MovieCard header= "Results for: " cardTitle={movieTitle} list={moviesList}/>

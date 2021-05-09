@@ -47,6 +47,13 @@ button.btn.btn-info{
   background-color: #fcbf49;
   border-color: #495057;
   color: #495057;
+    position: absolute;
+    width: 95%;
+    text-align: center;
+    margin: auto;
+    margin-top: 2%;
+  /* top: 50%;
+  left: 50%; */
 }
 .movie-poster{
   display: flex;
@@ -56,6 +63,7 @@ div.card-title{
   margin-right: 2%;
   margin-left: 2%;
   text-align: center;
+  text-wrap: wrap;
 }
 div.card-body{
 }
@@ -78,6 +86,10 @@ div.card-body{
 }
 
 @keyframes slide-nom {
-  from {left: -100px;}
+  from {left: -400px;}
   to {left: 0px;}
+}
+@keyframes color-nom {
+  from {background-color:#eae2b7;}
+  to {background-color: #fcbf49;}
 }
