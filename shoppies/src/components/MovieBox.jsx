@@ -93,7 +93,7 @@ export default function MovieBox() {
     const bgimage= "https://www.clipartkey.com/mpngs/m/23-233889_movies-png-vector-vector-clipart-psd-movie-icon.png"
   //map through movies from user input and add to results list
     return (
-      <Col>
+      <Col className="col-1">
         <Card className="movie-card" >
       {/* wrap li in div to only render list element if it is populated */}
       { movieInfo.length >1 &&
@@ -134,39 +134,37 @@ export default function MovieBox() {
     const nominationListView = nominationList.map((movie, index)=>{
 
       return (
-        <Col>
-        <Card className="movie-card" >
-        <Card.Body>
-        <li>
-          <form onSubmit={(event)=> event.preventDefault()}>
+        <Col className="col-2">
+          <Card className="movie-card" >
+            <Card.Body>
+              <li>
+                <form onSubmit={(event)=> event.preventDefault()}>
 
-          <div class="movie-poster">
-            <Card.Img 
-            // variant="top" 
-            src={movie.poster} />
-            <Card.Title>
-              {movie.title} ({movie.year})
-            </Card.Title>
-          </div>
+                <div class="movie-poster">
+                  <Card.Img src={movie.poster} />
+                  <Card.Title>
+                    {movie.title} ({movie.year})
+                  </Card.Title>
+                </div>
 
-          <Card.Footer className="text-muted">
-            <Button 
-              id={movie.index}
-              variant="info" 
-              type="submit" 
-              onClick={(event) => {
-                event.preventDefault()
-                handleRemoveNomination( {index}, movie.title, movie.year )
-                }
-              }
-            >
-              Remove
-            </Button>
-          </Card.Footer>
-          </form>
-        </li>
-        </Card.Body>
-        </Card>
+                <Card.Footer className="text-muted">
+                  <Button 
+                    id={movie.index}
+                    variant="info" 
+                    type="submit" 
+                    onClick={(event) => {
+                      event.preventDefault()
+                      handleRemoveNomination( {index}, movie.title, movie.year )
+                      }
+                    }
+                  >
+                    Remove
+                  </Button>
+                </Card.Footer>
+                </form>
+              </li>
+            </Card.Body>
+          </Card>
         </Col>
       )
     }) 
@@ -204,12 +202,13 @@ export default function MovieBox() {
       <div>{nominationList.length>4 && <NominationLimitAlert />}</div>
 
       <CardDeck>
+        
         <MovieCard header= "Results for: " cardTitle={movieTitle} list={moviesList}/>
         <div className="nom-card">
           <MovieCard header= "Nominations" list={renderedNoms}/>
         </div>
       </CardDeck>
-      
+
       <div>{nominationList.length>4 && <NominationLimitAlert />}</div>
 
     </div>

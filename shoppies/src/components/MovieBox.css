@@ -1,5 +1,6 @@
 div.App{
   background-color: #14213d;
+  width: 100%;
 }
 html {
   background-color: #14213d;
@@ -16,11 +17,14 @@ div.card-body{
   /* width: 15em; */
   background-color:#eae2b7;
 }
-.card-img{
+img.card-img{
   height: auto;
   width: auto;
   max-width: 100px;
   max-height: 300px;
+  /*  mobile */
+  /* display: block; */
+
 }
 ul {
   list-style: none;
@@ -91,4 +95,26 @@ div.card-body{
 @keyframes color-nom {
   from {background-color:#eae2b7;}
   to {background-color: #fcbf49;}
+}
+
+@media only screen and (max-width: 800px) {
+  .App-header{
+    width: 90vw;
+  }
+  div#wrapper{
+    margin: 0 auto;
+    width: 90%;
+  }
+  .text-muted{
+    width: max-content;
+  }
+  .card-title{
+    padding: 20px;
+  }
+  div.card-body {
+    display: contents;
+  }
+  .card-deck .card {
+    width: min-content;
+  }
 }
