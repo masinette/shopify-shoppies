@@ -13,11 +13,9 @@ export default function MovieBox() {
   const omdbUrl = `https://www.omdbapi.com/?apikey=91c918d&s=${movieTitle}&type=movie`;
   const [movieInfo, setMovieInfo] = useState([{ Search: "", Year: "", Title: "", Poster: ""}]);
   const [nominationList, setNominationList] = useState([]);
-  // const [disabled, setDisabled] = useState(false)
   const [show, setShow] = useState(false);
   const [titles, setTitles] = useState([]);
-  // const [movieList, setMovieList] = useState([]);
-  // const [checked, setChecked] = useState(false, disabled);
+
 
 //query the omdB api for movie title, refresh on url changes
   useEffect(() =>{
