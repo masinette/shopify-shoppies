@@ -74,7 +74,6 @@ export default function MovieBox() {
     const newList = nominationList.filter(nom => nom.title+nom.year !== title+year)
     //replace nominations list with NEW filtered list. Do not splice as it changes list in state
       setNominationList(newList)
-      // setTitles(newList.map((movie)=> movie.title + movie.year))
   }
 
   const findNominated = (movieTitle, movieYear) => {
